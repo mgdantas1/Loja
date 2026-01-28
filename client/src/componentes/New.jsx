@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function Form({ title, setAddProduto }) {
+export default function NewProduct({ setAddProduto }) {
     const [titulo, setTitulo] = useState('');
     const [quantidade, setQuantidade] = useState(1);
     const [tipo, setTipo] = useState('perfume');
@@ -9,7 +9,7 @@ export default function Form({ title, setAddProduto }) {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        
+
         try {
             const response = await fetch('/api/produto', {
                 method: 'POST',
@@ -22,6 +22,7 @@ export default function Form({ title, setAddProduto }) {
                 throw new Error(data.message);
             }
 
+            alert('Produto adicionado com sucesso!');
             setAddProduto(false);
         } catch (err) {
             alert(err.message);
@@ -46,7 +47,7 @@ export default function Form({ title, setAddProduto }) {
                 onSubmit={handleSubmit}
                 className='flex w-sm flex-col gap-4 border-2 border-black bg-white p-4 shadow-[5px_5px_0_black]'
             >
-                <h2 className='text-4xl font-bold'>{title}</h2>
+                <h2 className='text-4xl font-bold'>Novo Produto</h2>
                 <div>
                     <label htmlFor='titulo' className='mb-1 block'>
                         Titulo
@@ -83,7 +84,7 @@ export default function Form({ title, setAddProduto }) {
                         id='quantidade'
                         className='min-h-12 w-full border border-black px-4 outline'
                         value={quantidade}
-                        onChange={e => setQuantidade(e.target.value)}
+                        onChange={e => setQuantidade(Number(e.target.value))}
                         min={1}
                         required
                     />
@@ -97,7 +98,7 @@ export default function Form({ title, setAddProduto }) {
                         id='preco'
                         className='min-h-12 w-full border border-black px-4 outline'
                         value={preco}
-                        onChange={e => setPreco(e.target.value)}
+                        onChange={e => setPreco(Number(e.target.value))}
                         required
                     />
                 </div>
