@@ -10,4 +10,4 @@ class Produtos(Base):
     tipo:Mapped[str] = mapped_column(Enum('perfume', 'hidratante'), nullable=False)
     status:Mapped[bool] = mapped_column(nullable=False)
     quantidade:Mapped[int] = mapped_column(nullable=False)
-    preco:Mapped[float] = mapped_column(nullable=False)
+    preco:Mapped[int] = mapped_column(nullable=False) # Armazenar o preço em centavos para evitar problemas com ponto flutuante

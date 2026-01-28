@@ -7,6 +7,14 @@ export default function NewProduct({ setAddProduto }) {
     const [preco, setPreco] = useState(0);
     const formRef = useRef(null);
 
+    function formatPrice(value) {
+        const rawValue = value.toString().replace(/\D/g, '') / 100;
+        return rawValue.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+        });
+    }
+
     async function handleSubmit(event) {
         event.preventDefault();
 
@@ -36,8 +44,18 @@ export default function NewProduct({ setAddProduto }) {
             }
         }
 
+        function handleKeyDown(event) {
+            if (event.key === 'Escape') {
+                setAddProduto(false);
+            }
+        }
+
         document.addEventListener('mousedown', handleClick);
-        return () => document.removeEventListener('mousedown', handleClick);
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('mousedown', handleClick);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
     }, [setAddProduto]);
 
     return (
@@ -97,8 +115,8 @@ export default function NewProduct({ setAddProduto }) {
                         type='text'
                         id='preco'
                         className='min-h-12 w-full border border-black px-4 outline'
-                        value={preco}
-                        onChange={e => setPreco(Number(e.target.value))}
+                        value={formatPrice(preco)}
+                        onChange={e => setPreco(Number(e.target.value.replace(/\D/g, '')))}
                         required
                     />
                 </div>
