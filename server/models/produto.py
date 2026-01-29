@@ -11,3 +11,16 @@ class Produtos(Base):
     status:Mapped[bool] = mapped_column(nullable=False)
     quantidade:Mapped[int] = mapped_column(nullable=False)
     preco:Mapped[int] = mapped_column(nullable=False) # Armazenar o preço em centavos para evitar problemas com ponto flutuante
+
+    def transformar_dic(self):
+        return {
+            'id': self.id,
+            'titulo': self.titulo,
+            'status': self.status, 
+            'quantidade': self.quantidade, 
+            'preco': self.preco
+        }
+
+
+
+        

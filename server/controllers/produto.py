@@ -22,3 +22,16 @@ def adicionar_produto():
         except:
             session.rollback()
             return jsonify({'ok': False, 'message': 'Ocorreu algum erro interno'}), 500
+        
+@bp_produto.route('/', methods=['GET'])
+def listar_produto():
+    with Session() as session:
+        try:
+            produtos = session.query(Produtos).all()
+            lista = []
+            for p in produtos:
+                lista.append(p.transformar_dic())
+            return jsonify(lista), 200
+        except:
+            session.rollback()
+            return jsonify({'ok': False, 'message': 'Ocorreu algum erro interno'}), 500
