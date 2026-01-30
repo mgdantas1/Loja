@@ -35,3 +35,27 @@ def listar_produto():
         except:
             session.rollback()
             return jsonify({'ok': False, 'message': 'Ocorreu algum erro interno'}), 500
+        
+@bp_produto.route('/<int:id>', methods=['PUT'])
+def editar_produto(id):
+    with Session() as session:
+        try:
+            data = request.get_json(silent=True)
+            if data is None:
+                return jsonify({'ok': False, 'message': 'As informações não foram recebidas'}), 401
+            
+            produto = session.get(Produtos, id)
+            if produto:
+                produto.titulo = data.get('titulo')
+                produto.tipo = data.get('tipo')
+                produto.quantidade = data.get('quantidade')
+                produto.preco = data.get('preco')
+
+                session.commit()
+                return jsonify({'ok': True, 'message': 'Atualizações registradas'}), 200
+            
+            return jsonify({'ok': False, 'message': 'Produto não encontrado'}), 404
+
+        except:
+            session.rollback()
+            return jsonify({'ok': False, 'message': 'Ocorreu um erro interno'}), 500
