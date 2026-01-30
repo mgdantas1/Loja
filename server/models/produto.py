@@ -5,7 +5,7 @@ from database import Base
 class Produtos(Base):
     __tablename__ = 'produtos'
 
-    id:Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    id:Mapped[int] = mapped_column(primary_key=True, autoincrement=True, nullable=False)
     titulo:Mapped[str] = mapped_column(String(30), nullable=False)
     tipo:Mapped[str] = mapped_column(Enum('perfume', 'hidratante'), nullable=False)
     status:Mapped[bool] = mapped_column(nullable=False)
@@ -13,13 +13,13 @@ class Produtos(Base):
     preco:Mapped[int] = mapped_column(nullable=False) # Armazenar o preço em centavos para evitar problemas com ponto flutuante
 
     def transformar_dic(self):
-        return {
-            'id': self.id,
-            'titulo': self.titulo,
-            'status': self.status, 
-            'quantidade': self.quantidade, 
-            'preco': self.preco
-        }
+            return {
+                "id": self.id,
+                "titulo": self.titulo,
+                "tipo": self.tipo,
+                "quantidade": self.quantidade,
+                "preco": self.preco
+            }
 
 
 
