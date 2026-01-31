@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { PUT } from '../api/produtos';
 
 export default function UpdateProduct({ produto, setUpdateProduto, pegarProdutos }) {
     const [titulo, setTitulo] = useState(produto.titulo);
@@ -19,15 +20,7 @@ export default function UpdateProduct({ produto, setUpdateProduto, pegarProdutos
         event.preventDefault();
 
         try {
-            const response = await fetch(`/api/produto/${produto.id}`, {
-                method: 'PUT',
-                credentials: 'include',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ titulo, tipo, quantidade, preco }),
-            });
-
-            const data = await response.json();
-
+            const data = await PUT(produto);
             if (!data.ok) {
                 throw new Error(data.message);
             }

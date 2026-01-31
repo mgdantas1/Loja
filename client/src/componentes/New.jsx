@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { POST } from '../api/produtos';
 
 export default function NewProduct({ setAddProduto, pegarProdutos }) {
     const [titulo, setTitulo] = useState('');
@@ -19,13 +20,7 @@ export default function NewProduct({ setAddProduto, pegarProdutos }) {
         event.preventDefault();
 
         try {
-            const response = await fetch('/api/produto', {
-                method: 'POST',
-                credentials: 'include',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ titulo, quantidade, tipo, preco }),
-            });
-            const data = await response.json();
+            const data = await POST({ titulo, quantidade, tipo, preco });
             if (!data.ok) {
                 throw new Error(data.message);
             }

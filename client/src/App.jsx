@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import NewProduct from './componentes/New';
 import UpdateProduct from './componentes/Update';
+import { GET } from './api/produtos';
 
 export default function App() {
     const [addProduto, setAddProduto] = useState(false);
@@ -10,8 +11,7 @@ export default function App() {
 
     async function pegarProduto() {
         try {
-            const response = await fetch('/api/produto', { credentials: 'include' });
-            const data = await response.json();
+            const data = await GET();
             if (!data.ok) {
                 throw new Error(data.message);
             }
