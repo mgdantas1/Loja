@@ -31,30 +31,33 @@ export default function App() {
     };
 
     return (
-        <main className='flex min-h-screen flex-col items-center justify-center gap-8'>
-            {addProduto && <NewProduct setAddProduto={setAddProduto} pegarProdutos={pegarProduto} />}
-            {updateProduto && produtoSelecionado && (
-                <UpdateProduct
-                    setUpdateProduto={setUpdateProduto}
-                    produto={produtoSelecionado}
-                    pegarProdutos={pegarProduto}
-                />
-            )}
-            <nav>
-                <button className='primary-btn w-fit px-4' onClick={() => setAddProduto(true)}>
-                    Adicionar produto
-                </button>
-            </nav>
-            <section>
-                {lista.map(produto => (
-                    <>
-                        <p>{produto.titulo}</p>
-                        <button className='primary-btn w-fit px-4' onClick={() => abrirEdicao(produto)}>
-                            Editar
-                        </button>
-                    </>
-                ))}
-            </section>
-        </main>
+        <div className='wrapper'>
+            <main className='flex min-h-screen flex-col'>
+                {addProduto && <NewProduct setAddProduto={setAddProduto} pegarProdutos={pegarProduto} />}
+                {updateProduto && produtoSelecionado && (
+                    <UpdateProduct
+                        setUpdateProduto={setUpdateProduto}
+                        produto={produtoSelecionado}
+                        pegarProdutos={pegarProduto}
+                    />
+                )}
+                <nav className='flex flex-col items-center justify-between gap-4 border-b-2 border-b-black p-8 sm:flex-row'>
+                    <h1 className='text-4xl font-bold text-balance'>Loja de Cosméticos</h1>
+                    <button className='primary-btn w-fit px-4' onClick={() => setAddProduto(true)}>
+                        Adicionar produto
+                    </button>
+                </nav>
+                <section className='flex-1 p-8'>
+                    {lista.map(produto => (
+                        <>
+                            <p>{produto.titulo}</p>
+                            <button className='primary-btn w-fit px-4' onClick={() => abrirEdicao(produto)}>
+                                Editar
+                            </button>
+                        </>
+                    ))}
+                </section>
+            </main>
+        </div>
     );
 }
