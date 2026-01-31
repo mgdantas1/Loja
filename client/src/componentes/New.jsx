@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function NewProduct({ setAddProduto }) {
+export default function NewProduct({ setAddProduto, pegarProdutos }) {
     const [titulo, setTitulo] = useState('');
     const [quantidade, setQuantidade] = useState(1);
     const [tipo, setTipo] = useState('perfume');
@@ -32,6 +32,7 @@ export default function NewProduct({ setAddProduto }) {
 
             alert('Produto adicionado com sucesso!');
             setAddProduto(false);
+            pegarProdutos();
         } catch (err) {
             alert(err.message);
         }

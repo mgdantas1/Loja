@@ -31,7 +31,8 @@ def listar_produto():
             lista = []
             for p in produtos:
                 lista.append(p.transformar_dic())
-            return jsonify(lista), 200
+            return jsonify({'ok': True, 'produtos': lista}), 200
+
         except:
             session.rollback()
             return jsonify({'ok': False, 'message': 'Ocorreu algum erro interno'}), 500

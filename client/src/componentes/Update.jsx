@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function UpdateProduct({ produto, setUpdateProduto }) {
-    const [titulo, setTitulo] = useState('');
-    const [tipo, setTipo] = useState('perfume');
-    const [quantidade, setQuantidade] = useState(0);
-    const [preco, setPreco] = useState(0);
+export default function UpdateProduct({ produto, setUpdateProduto, pegarProdutos }) {
+    const [titulo, setTitulo] = useState(produto.titulo);
+    const [tipo, setTipo] = useState(produto.tipo);
+    const [quantidade, setQuantidade] = useState(produto.quantidade);
+    const [preco, setPreco] = useState(produto.preco);
     const formRef = useRef(null);
 
     function formatPrice(value) {
@@ -34,6 +34,7 @@ export default function UpdateProduct({ produto, setUpdateProduto }) {
 
             alert('Produto atualizado com sucesso!');
             setUpdateProduto(false);
+            pegarProdutos();
         } catch (err) {
             alert(err.message);
         }
@@ -123,7 +124,7 @@ export default function UpdateProduct({ produto, setUpdateProduto }) {
                     />
                 </div>
                 <button type='submit' className='primary-btn'>
-                    Adicionar
+                    Editar
                 </button>
             </form>
         </article>
