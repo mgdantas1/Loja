@@ -1,7 +1,7 @@
 export async function GET() {
     const response = await fetch('/api/produto', { credentials: 'include' });
     const data = await response.json();
-    return data
+    return data;
 }
 
 export async function POST(produto) {
@@ -9,8 +9,8 @@ export async function POST(produto) {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(produto)
-    })
+        body: JSON.stringify(produto),
+    });
     const data = await response.json();
     return data;
 }
@@ -20,7 +20,7 @@ export async function PUT(produto) {
         method: 'PUT',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(produto)
+        body: JSON.stringify(produto),
     });
     const data = await response.json();
     return data;

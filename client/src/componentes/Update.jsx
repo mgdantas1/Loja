@@ -72,6 +72,7 @@ export default function UpdateProduct({ produto, setUpdateProduto, pegarProdutos
                         className='min-h-12 w-full border border-black px-4 outline'
                         value={titulo}
                         onChange={e => setTitulo(e.target.value)}
+                        min={3}
                         required
                     />
                 </div>
