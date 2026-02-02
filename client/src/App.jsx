@@ -52,14 +52,18 @@ export default function App() {
                         Adicionar produto
                     </button>
                 </nav>
-                <section className='flex-1 p-8'>
+                <section className='flex flex-wrapjustify-center gap-6'>
                     {lista.map(produto => (
-                        <>
-                            <p>{produto.titulo}</p>
+                        <div className='border-2 border-black rounded-xl p-3' >
+                            <h1>{produto.titulo}</h1>
+                            <p>Tipo: {produto.tipo}</p>
+                            <p>Quantidade: {produto.quantidade}</p>
+                            <p>Preço: R$ {(produto.preco / 100)}
+                            </p>
                             <button className='primary-btn w-fit px-4' onClick={() => abrirEdicao(produto)}>
                                 Editar
                             </button>
-                        </>
+                        </div>
                     ))}
                 </section>
             </main>
