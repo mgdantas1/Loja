@@ -20,7 +20,13 @@ export default function UpdateProduct({ produto, setUpdateProduto, pegarProdutos
         event.preventDefault();
 
         try {
-            const data = await PUT(produto);
+            const data = await PUT({
+                id: produto.id,
+                titulo: titulo,
+                tipo: tipo,
+                quantidade: quantidade,
+                preco: preco,
+            });
             if (!data.ok) {
                 throw new Error(data.message);
             }

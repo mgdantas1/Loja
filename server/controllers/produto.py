@@ -34,7 +34,6 @@ def listar_produto():
             return jsonify({'ok': True, 'produtos': lista}), 200
 
         except:
-            session.rollback()
             return jsonify({'ok': False, 'message': 'Ocorreu algum erro interno'}), 500
         
 @bp_produto.route('/<int:id>', methods=['PUT'])
