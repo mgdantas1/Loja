@@ -18,5 +18,6 @@ class Produtos(Base):
             "titulo": self.titulo,
             "tipo": self.tipo,
             "quantidade": self.quantidade,
-            "preco": self.preco
+            "preco": self.preco,
+            "status": self.status
         }

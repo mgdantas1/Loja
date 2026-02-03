@@ -4,6 +4,7 @@ import UpdateProduct from './componentes/Update';
 import Loading from './componentes/Loading';
 import { GET } from './api/produtos';
 import { DELETE } from './api/produtos';
+import { PATCH } from './api/produtos';
 
 export default function App() {
     const [addProduto, setAddProduto] = useState(false);
@@ -29,6 +30,15 @@ export default function App() {
     async function deletarProduto(id) {
         if (!confirm('Você tem certeza?')) return;
         const data = await DELETE(id);
+        if (data.ok) {
+            pegarProduto();
+        }
+        alert(data.message);
+    }
+
+    async function mudarStatus(id) {
+        if (!confirm('Você tem certeza?')) return;
+        const data = await PATCH(id);
         if (data.ok) {
             pegarProduto();
         }
@@ -73,6 +83,9 @@ export default function App() {
                             <p>
                                 Preço:<strong> R$ {produto.preco / 100}</strong>
                             </p>
+                            {console.log(produto.status, typeof produto.status)}
+
+                            {produto.status ? (<p className='text-green-500'>Ativo</p>) : (<p className='text-gray-500'>Inativo</p>)}
                             <button
                                 className='primary-btn w-fit self-end px-6 py-0.5'
                                 onClick={() => abrirEdicao(produto)}
@@ -84,6 +97,12 @@ export default function App() {
                                 onClick={() => deletarProduto(produto.id)}
                             >
                                 Deletar
+                            </button>
+                            <button
+                                className='primary-btn w-fit self-end px-6 py-0.5'
+                                onClick={() => mudarStatus(produto.id)}
+                            >
+                                Mudar status
                             </button>
                         </div>
                     ))}

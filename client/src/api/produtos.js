@@ -32,3 +32,12 @@ export async function DELETE(id) {
     });
     return response.json();
 }
+
+export async function PATCH(id) {
+    const response = await fetch(`/api/produto/${id}/status`, {
+        method: 'PATCH',
+        credentials: 'include',
+    });
+    const data = await response.json()
+    return data;
+}

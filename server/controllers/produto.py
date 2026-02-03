@@ -1,3 +1,4 @@
+from operator import methodcaller
 from flask import Blueprint, jsonify, request
 from models.produto import Produtos
 from database import Session
@@ -66,12 +67,27 @@ def editar_produto(id):
 
 @bp_produto.route('/<int:id>', methods=['DELETE'])
 def deletar_produto(id):
-    try:
-        with Session() as session:
+    with Session() as session:
+        try:
             produto = session.get(Produtos, id)
             session.delete(produto)
             session.commit()
             return jsonify({'ok': True, 'message': 'Produto deletado com sucesso'}), 200
-    except:
-        session.rollback()
-        return jsonify({'ok': False, 'message': 'Ocorreu um erro interno'}), 500
+        except:
+            session.rollback()
+            return jsonify({'ok': False, 'message': 'Ocorreu um erro interno'}), 500
+    
+@bp_produto.route('/<int:id>/status', methods=['PATCH'])
+def mudar_status(id):
+    with Session() as session:
+        try:
+            produto = session.get(Produtos, id)
+            if produto.status == True:
+                produto.status = False
+            else:
+                produto.status = True
+            session.commit()
+            return jsonify({'ok': True, 'message': 'Status do produto atualizado com sucesso'}), 200
+        except:
+            session.rollback()
+            return jsonify({'ok': False, 'message': 'Ocorreu um erro interno'}), 500
