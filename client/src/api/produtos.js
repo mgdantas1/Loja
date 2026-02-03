@@ -25,3 +25,10 @@ export async function PUT(produto) {
     const data = await response.json();
     return data;
 }
+
+export async function DELETE(id) {
+    const response = await fetch(`/api/produto/${id}`, {
+        method: 'DELETE',
+    });
+    return response.json();
+}

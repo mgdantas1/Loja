@@ -3,6 +3,7 @@ import NewProduct from './componentes/New';
 import UpdateProduct from './componentes/Update';
 import Loading from './componentes/Loading';
 import { GET } from './api/produtos';
+import { DELETE } from './api/produtos';
 
 export default function App() {
     const [addProduto, setAddProduto] = useState(false);
@@ -23,6 +24,15 @@ export default function App() {
         } finally {
             setLoading(false);
         }
+    }
+
+    async function deletarProduto(id) {
+        if (!confirm('Você tem certeza?')) return;
+        const data = await DELETE(id);
+        if (data.ok) {
+            pegarProduto();
+        }
+        alert(data.message);
     }
 
     useEffect(() => {
@@ -52,16 +62,28 @@ export default function App() {
                         Adicionar produto
                     </button>
                 </nav>
-                <section className='flex flex-wrap justify-center gap-6 m-6'>
+                <section className='m-6 flex flex-wrap justify-center gap-6'>
                     {lista.map(produto => (
-                        <div className='border-2 border-black rounded-xl p-4 min-w-80 max-w-100 flex-1 flex flex-col gap-2' >
-                            <h1 className='font-bold border-b-2 border-b-gray-400 pb-2 mb-4 text-xl'>{produto.titulo}</h1>
+                        <div className='flex max-w-100 min-w-80 flex-1 flex-col gap-2 rounded-xl border-2 border-black p-4'>
+                            <h1 className='mb-4 border-b-2 border-b-gray-400 pb-2 text-xl font-bold'>
+                                {produto.titulo}
+                            </h1>
                             <p>Tipo: {produto.tipo}</p>
                             <p>Quantidade: {produto.quantidade}</p>
-                            <p>Preço:<strong> R$ {(produto.preco / 100)}</strong>
+                            <p>
+                                Preço:<strong> R$ {produto.preco / 100}</strong>
                             </p>
-                            <button className='primary-btn w-fit px-6 py-0.5 self-end' onClick={() => abrirEdicao(produto)}>
+                            <button
+                                className='primary-btn w-fit self-end px-6 py-0.5'
+                                onClick={() => abrirEdicao(produto)}
+                            >
                                 Editar
+                            </button>
+                            <button
+                                className='primary-btn w-fit self-end px-6 py-0.5'
+                                onClick={() => deletarProduto(produto.id)}
+                            >
+                                Deletar
                             </button>
                         </div>
                     ))}
