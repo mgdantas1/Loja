@@ -1,5 +1,10 @@
-export async function GET() {
-    const response = await fetch('/api/produto', { credentials: 'include' });
+export async function GET(filter) {
+    const params = new URLSearchParams();
+    params.append('type', filter.type);
+    params.append('status', filter.status);
+    
+    const URL = '/api/produto?' + params.toString();
+    const response = await fetch(URL, { credentials: 'include' });
     const data = await response.json();
     return data;
 }
@@ -29,8 +34,10 @@ export async function PUT(produto) {
 export async function DELETE(id) {
     const response = await fetch(`/api/produto/${id}`, {
         method: 'DELETE',
+        credentials: 'include',
     });
-    return response.json();
+    const data = await response.json();
+    return data;
 }
 
 export async function PATCH(id) {
@@ -38,6 +45,6 @@ export async function PATCH(id) {
         method: 'PATCH',
         credentials: 'include',
     });
-    const data = await response.json()
+    const data = await response.json();
     return data;
 }

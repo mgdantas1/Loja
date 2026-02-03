@@ -1,4 +1,3 @@
-from operator import methodcaller
 from flask import Blueprint, jsonify, request
 from models.produto import Produtos
 from database import Session
@@ -30,7 +29,10 @@ def adicionar_produto():
 def listar_produto():
     with Session() as session:
         try:
-            produtos = session.query(Produtos).all()
+            type = request.args.get('type')
+            status = request.args.get('status')
+
+            produtos = session.query(Produtos).filter(type == 'all' or Produtos.tipo == type).filter(status == 'all' or Produtos.status == (status == 'ativo')).all() # type: ignore
             lista = []
             for p in produtos:
                 lista.append(p.transformar_dic())
