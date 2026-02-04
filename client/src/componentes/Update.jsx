@@ -6,6 +6,7 @@ export default function UpdateProduct({ produto, setUpdateProduto, pegarProdutos
     const [tipo, setTipo] = useState(produto.tipo);
     const [quantidade, setQuantidade] = useState(produto.quantidade);
     const [preco, setPreco] = useState(produto.preco);
+    const [isLoading, setLoading] = useState(false);
     const formRef = useRef(null);
 
     function formatPrice(value) {
@@ -18,6 +19,7 @@ export default function UpdateProduct({ produto, setUpdateProduto, pegarProdutos
 
     async function handleSubmit(event) {
         event.preventDefault();
+        setLoading(true);
 
         try {
             const data = await PUT({
@@ -36,6 +38,8 @@ export default function UpdateProduct({ produto, setUpdateProduto, pegarProdutos
             pegarProdutos();
         } catch (err) {
             alert(err.message);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -123,7 +127,11 @@ export default function UpdateProduct({ produto, setUpdateProduto, pegarProdutos
                         required
                     />
                 </div>
-                <button type='submit' className='primary-btn'>
+                <button
+                    type='submit'
+                    className='primary-btn disabled:cursor-no-drop disabled:opacity-50'
+                    disabled={isLoading}
+                >
                     Editar
                 </button>
             </form>

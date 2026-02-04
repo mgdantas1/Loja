@@ -6,6 +6,7 @@ export default function NewProduct({ setAddProduto, pegarProdutos }) {
     const [quantidade, setQuantidade] = useState(1);
     const [tipo, setTipo] = useState('perfume');
     const [preco, setPreco] = useState(0);
+    const [isLoading, setLoading] = useState(false);
     const formRef = useRef(null);
 
     function formatPrice(value) {
@@ -18,6 +19,7 @@ export default function NewProduct({ setAddProduto, pegarProdutos }) {
 
     async function handleSubmit(event) {
         event.preventDefault();
+        setLoading(true);
 
         try {
             const data = await POST({ titulo, quantidade, tipo, preco });
@@ -30,6 +32,8 @@ export default function NewProduct({ setAddProduto, pegarProdutos }) {
             pegarProdutos();
         } catch (err) {
             alert(err.message);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -117,7 +121,11 @@ export default function NewProduct({ setAddProduto, pegarProdutos }) {
                         required
                     />
                 </div>
-                <button type='submit' className='primary-btn'>
+                <button
+                    type='submit'
+                    className='primary-btn disabled:cursor-no-drop disabled:opacity-50'
+                    disabled={isLoading}
+                >
                     Adicionar
                 </button>
             </form>
