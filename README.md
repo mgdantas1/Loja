@@ -2,17 +2,17 @@
 
 Sistema desenvolvido para a matéria de **PSI** (Programação de Sistemas para a Internet).
 
-<!-- Adicionar imagens -->
+![Imagem do sistema](image.png)
 
 ## 🛜 Endpoints
 
-| Método     | URL                | Função                      |
-| ---------- | ------------------ | --------------------------- |
-| **GET**    | `/api/produto`     | Pegar produtos              |
-| **POST**   | `/api/produto`     | Adicionar produtos          |
-| **PUT**    | `/api/produto/:id` | Alterar multiplos dados     |
-| **PATCH**  | `/api/produto/:id` | Alterar o status do produto |
-| **DELETE** | `/api/produto/:id` | Delete produto              |
+| Método     | URL                       | Função                      |
+| ---------- | ------------------------- | --------------------------- |
+| **GET**    | `/api/produto`            | Pegar produtos              |
+| **POST**   | `/api/produto`            | Adicionar produtos          |
+| **PUT**    | `/api/produto/:id`        | Alterar multiplos dados     |
+| **PATCH**  | `/api/produto/:id/status` | Alterar o status do produto |
+| **DELETE** | `/api/produto/:id`        | Delete produto              |
 
 ## ▶️ Como executar
 

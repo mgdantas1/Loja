@@ -79,7 +79,7 @@ export default function App() {
                     <Filter filter={filter} setFilter={setFilter} buscar={pegarProduto} />
                     <article className='flex flex-wrap justify-center gap-6'>
                         {lista.map(produto => (
-                            <div className='flex max-w-100 min-w-80 flex-1 flex-col gap-2 rounded-xl border-2 border-black p-4'>
+                            <div className='flex max-w-100 min-w-80 flex-1 flex-col gap-2 border-2 border-black p-4'>
                                 <h1 className='mb-4 border-b-2 border-b-gray-400 pb-2 text-xl font-bold'>
                                     {produto.titulo}
                                 </h1>
